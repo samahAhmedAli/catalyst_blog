@@ -1,0 +1,28 @@
+[% # This is a TT comment. -%]
+[%- # Provide a title -%]
+[% META title = 'Posts List' -%]
+[% # Note That the '-' at the beginning or end of TT code -%]
+[% # "chomps" the whitespace/newline at that end of the
+-%]
+[% # output (use View Source in browser to see the effect) -%]
+[% # Some basic HTML with a loop to display users -%]
+<table border="1">
+<tr><th>Id</th><th>Title</th><th>Body</th><th>Actions</th></tr>
+[% # Display each post in a table row %]
+[% FOREACH post IN posts -%]
+<tr>
+<td>[% post.id %]</td>
+<td><a href="[%c.uri_for(c.controller.action_for('show'),[post.id]) %]">[% post.title %]</a></td>
+<td>[% post.body %]</td>
+<td>
+<a href="[%c.uri_for(c.controller.action_for('delete'),[post.id]) %]">delete</a>
+<a href="[%c.uri_for(c.controller.action_for('edit'), [post.id]) %]">Edit</a>
+</td>
+</tr>
+[% END -%]
+</table>
+
+<br>
+<a href="[%c.uri_for(c.controller.action_for('form_new')) %]">Create new post</a> <br>
+<a href="[%c.uri_for($c.controller('users').action_for('form_new')) %]">Create new user</a>
+<br>

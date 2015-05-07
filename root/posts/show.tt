@@ -1,0 +1,39 @@
+[% # This is a TT comment. -%]
+[%- # Provide a title -%]
+[% META title = 'Posts List' -%]
+[% # Note That the '-' at the beginning or end of TT code -%]
+[% # "chomps" the whitespace/newline at that end of the
+-%]
+[% # output (use View Source in browser to see the effect) -%]
+[% # Some basic HTML with a loop to display users -%]
+<table border="1">
+<tr><th>Id</th><th>Title</th><th>Body</th></tr>
+[% # Display each post in a table row %]
+<tr>
+<td>[% post.id %]</td>
+<td>[% post.title %]</td>
+<td>[% post.body %]</td>
+</tr>
+</table>
+
+<table border="1">
+<tr><th>comment</th><tr>
+
+[% FOREACH comment IN comments -%]
+
+
+<tr>
+<td>[% comment.body %]</td>
+</tr>
+
+[% END -%]
+</table>
+
+<form method="post" action="[%
+        c.uri_for(c.controller.action_for('comment'), [post.id]) %]">
+<table>
+  <tr><td>comment:</td><td><input type="text" name="body"></td></tr>
+  <input type="hidden" name="createdby" value=[%post.createdby.id%]>
+</table>
+<input type="submit" name="Submit" value="Submit">
+</form>
